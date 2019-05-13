@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Temporada extends Model
 {
-    public function espisodios()
+    public $timestamps = false;
+    protected $fillable = ['numero'];
+
+    public function episodios()
     {
-        $this->hasMany(Episodio::class);
+        return $this->hasMany(Episodio::class);
     }
 
     public function serie()

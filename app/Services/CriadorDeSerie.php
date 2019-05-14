@@ -4,12 +4,14 @@ namespace App\Services;
 
 
 use App\Serie;
+use Illuminate\Support\Facades\DB;
 
 class CriadorDeSerie
 {
 
     public function criarSerie($nomeSerie, $qtdTemporadas, $qtdEpisodios)
     {
+        DB::beginTransaction();
         $serie = Serie::create([
             'nome' => $nomeSerie
         ]);
@@ -27,6 +29,7 @@ class CriadorDeSerie
                 ]);
             }
         }
+        DB::commit();
 
         return $serie;
     }

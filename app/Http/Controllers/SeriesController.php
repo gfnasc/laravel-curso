@@ -9,6 +9,7 @@ use App\Episodio;
 use Illuminate\Http\Request;
 use App\Http\Requests\SeriesFormRequest;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
@@ -34,7 +35,7 @@ class SeriesController extends Controller
 
         $request->session()->flash(
             'mensagem',
-            'Série criada com sucesso!'
+            'Série '.$serie->nome.' criada com sucesso!'
         );
 
         return redirect()->route('series_lista');
@@ -42,10 +43,14 @@ class SeriesController extends Controller
 
     public function destroy(Request $request)
     {
+        DB::beginTransaction();
+        $serie = Serie::find($request->id);
         Serie::destroy($request->id);
+        DB::commit();
+
         $request->session()->flash(
             'mensagem',
-            'Série removida com sucesso!'
+            'Série '.$serie->nome.' removida com sucesso!'
         );
 
         return redirect()->route('series_lista');

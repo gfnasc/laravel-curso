@@ -13,7 +13,7 @@ class CriadorDeSerie
         $serie = Serie::create([
             'nome' => $nomeSerie
         ]);
-        
+
         for ($i = 1; $i <= $qtdTemporadas; $i++)
         {
             $temporada = $serie->temporadas()->create([
